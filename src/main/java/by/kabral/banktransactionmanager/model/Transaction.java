@@ -26,9 +26,6 @@ public class Transaction {
     @Column(name = "account_to")
     private long accountTo;
 
-    @Column(name = "currency_shortname")
-    private String currencyShortName;
-
     @Column(name = "sum")
     private BigDecimal sum;
 
