@@ -6,6 +6,7 @@
 
     <include file="10-changeset-transactions-schema.xml" relativeToChangelogFile="true"/>
     <include file="20-changeset-limits-schema.xml" relativeToChangelogFile="true"/>
+    <include file="21-changeset-limits-schema.xml" relativeToChangelogFile="true"/>
     <include file="30-changeset-currency-rates-schema.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

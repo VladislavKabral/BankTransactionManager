@@ -20,6 +20,9 @@ public class Limit {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "value")
     private BigDecimal value;
 
