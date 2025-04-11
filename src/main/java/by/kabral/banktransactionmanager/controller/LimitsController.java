@@ -2,6 +2,7 @@ package by.kabral.banktransactionmanager.controller;
 
 import by.kabral.banktransactionmanager.dto.LimitDto;
 import by.kabral.banktransactionmanager.dto.LimitsListDto;
+import by.kabral.banktransactionmanager.exception.InvalidRequestDataException;
 import by.kabral.banktransactionmanager.service.LimitsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class LimitsController {
   }
 
   @PostMapping
-  public ResponseEntity<LimitDto> addLimit(@RequestBody @Valid LimitDto limitDto) {
+  public ResponseEntity<LimitDto> addLimit(@RequestBody @Valid LimitDto limitDto) throws InvalidRequestDataException {
     return new ResponseEntity<>(limitsService.save(limitDto), HttpStatus.CREATED);
   }
 }

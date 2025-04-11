@@ -1,6 +1,7 @@
 package by.kabral.banktransactionmanager.controller;
 
 import by.kabral.banktransactionmanager.dto.TransactionDto;
+import by.kabral.banktransactionmanager.exception.InvalidRequestDataException;
 import by.kabral.banktransactionmanager.service.TransactionsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class TransactionsController {
   private final TransactionsService transactionsService;
 
   @PostMapping
-  public ResponseEntity<TransactionDto> saveTransaction(@RequestBody @Valid TransactionDto transactionDto) {
+  public ResponseEntity<TransactionDto> saveTransaction(@RequestBody @Valid TransactionDto transactionDto) throws InvalidRequestDataException {
     return new ResponseEntity<>(transactionsService.save(transactionDto), HttpStatus.CREATED);
   }
 }
