@@ -1,12 +1,13 @@
 package by.kabral.banktransactionmanager.model;
 
 import by.kabral.banktransactionmanager.util.ExpenseCategory;
+import by.kabral.banktransactionmanager.util.ZonedDateTimeConvertor;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -21,10 +22,13 @@ public class Transaction {
     private UUID id;
 
     @Column(name = "account_from")
-    private long accountFrom;
+    private String accountFrom;
 
     @Column(name = "account_to")
-    private long accountTo;
+    private String accountTo;
+
+    @Column(name = "currency_shortname")
+    private String currencyShortname;
 
     @Column(name = "sum")
     private BigDecimal sum;
@@ -33,5 +37,6 @@ public class Transaction {
     private ExpenseCategory expenseCategory;
 
     @Column(name = "datetime")
-    private LocalDateTime datetime;
+    @Convert(converter = ZonedDateTimeConvertor.class)
+    private ZonedDateTime datetime;
 }

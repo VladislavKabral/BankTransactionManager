@@ -1,11 +1,12 @@
 package by.kabral.banktransactionmanager.model;
 
+import by.kabral.banktransactionmanager.util.ZonedDateTimeConvertor;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -23,5 +24,6 @@ public class Limit {
     private BigDecimal value;
 
     @Column(name = "datetime")
-    private LocalDateTime dateTime;
+    @Convert(converter = ZonedDateTimeConvertor.class)
+    private ZonedDateTime dateTime;
 }

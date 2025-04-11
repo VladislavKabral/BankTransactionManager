@@ -4,7 +4,7 @@ import by.kabral.banktransactionmanager.config.prop.ExternalAPIProperties;
 import by.kabral.banktransactionmanager.dto.CurrencyRateDto;
 import by.kabral.banktransactionmanager.model.CurrencyRate;
 import by.kabral.banktransactionmanager.repository.CurrencyRatesRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ import static by.kabral.banktransactionmanager.util.Currency.*;
 import static by.kabral.banktransactionmanager.util.Constant.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CurrencyRatesService {
 
     private final ExternalAPIProperties externalAPIProperties;
@@ -29,9 +29,9 @@ public class CurrencyRatesService {
     @Scheduled(cron = "@daily")
     @Transactional
     public void loadCurrencyRates() {
-        loadCurrencyRate(DOLLAR_SHORT_NAME, TENGE_SHORT_NAME);
-        loadCurrencyRate(RUBLE_SHORT_NAME, DOLLAR_SHORT_NAME);
-        loadCurrencyRate(EURO_SHORT_NAME, DOLLAR_SHORT_NAME);
+        loadCurrencyRate(TENGE_SHORT_NAME);
+        loadCurrencyRate(RUBLE_SHORT_NAME);
+        loadCurrencyRate(EURO_SHORT_NAME);
     }
 
     private UriComponents buildCurrencyRatesUri(String symbol) {
@@ -45,8 +45,8 @@ public class CurrencyRatesService {
     }
 
     @Transactional
-    protected void loadCurrencyRate(String source, String target) {
-        String symbol = getExchangingPair(source, target);
+    protected void loadCurrencyRate(String target) {
+        String symbol = getExchangingPair(DOLLAR_SHORT_NAME, target);
         UriComponents uriComponents = buildCurrencyRatesUri(symbol);
 
         CurrencyRateDto currencyRateDto = restClient.get()
@@ -56,7 +56,7 @@ public class CurrencyRatesService {
                 .getBody();
 
         CurrencyRate currencyRate = CurrencyRate.builder()
-                .source(source)
+                .source(DOLLAR_SHORT_NAME)
                 .target(target)
                 .rate(currencyRateDto.getClose())
                 .datetime(ZonedDateTime.now(ZoneId.of(UTC_ZONE_NAME)).toLocalDateTime())
