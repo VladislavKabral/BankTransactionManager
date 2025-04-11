@@ -1,6 +1,8 @@
 package by.kabral.banktransactionmanager.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Table(name = "currency_rates")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CurrencyRate {
 
     @Id
