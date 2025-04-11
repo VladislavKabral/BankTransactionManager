@@ -11,13 +11,11 @@ import static by.kabral.banktransactionmanager.util.Message.*;
 public class LimitsValidator implements Validator<LimitDto> {
 
   @Override
-  public boolean validate(LimitDto limitDto) throws InvalidRequestDataException {
+  public void validate(LimitDto limitDto) throws InvalidRequestDataException {
     String type = limitDto.getType();
     if ((!type.equals(ExpenseCategory.PRODUCT.toString()))
             && (!type.equals(ExpenseCategory.SERVICE.toString()))) {
       throw new InvalidRequestDataException(LIMIT_TYPE_IS_UNKNOWN);
     }
-
-    return true;
   }
 }

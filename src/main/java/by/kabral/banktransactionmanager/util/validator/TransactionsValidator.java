@@ -15,7 +15,7 @@ import static by.kabral.banktransactionmanager.util.Message.*;
 public class TransactionsValidator implements Validator<TransactionDto> {
 
   @Override
-  public boolean validate(TransactionDto transactionDto) throws InvalidRequestDataException {
+  public void validate(TransactionDto transactionDto) throws InvalidRequestDataException {
     if (!currencyShortnames.contains(transactionDto.getCurrencyShortName())) {
       throw new InvalidRequestDataException(CURRENCY_SHORTNAME_IS_UNKNOWN);
     }
@@ -31,6 +31,5 @@ public class TransactionsValidator implements Validator<TransactionDto> {
       throw new InvalidRequestDataException(TRANSACTION_DATETIME_IS_INVALID);
     }
 
-    return true;
   }
 }
