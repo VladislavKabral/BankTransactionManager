@@ -27,4 +27,6 @@ public class Message {
   public final String LIMIT_VALUE_IS_NULL = "The limit's value is null.";
   public final String LIMIT_VALUE_IS_INVALID = "The limit's value must be grater than zero.";
   public final String LIMIT_TYPE_IS_UNKNOWN = "The limit's type is unknown.";
+  public final String METHOD_NOT_ALLOWED = "%s for this endpoint.";
+  public final String REQUEST_PARAMETER_IS_INVALID = "Failed to convert value in request parameter.";
 }
