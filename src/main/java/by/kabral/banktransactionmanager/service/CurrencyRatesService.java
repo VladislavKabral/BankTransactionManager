@@ -2,6 +2,7 @@ package by.kabral.banktransactionmanager.service;
 
 import by.kabral.banktransactionmanager.config.prop.ExternalAPIProperties;
 import by.kabral.banktransactionmanager.dto.CurrencyRateDto;
+import by.kabral.banktransactionmanager.exception.EntityNotFoundException;
 import by.kabral.banktransactionmanager.model.CurrencyRate;
 import by.kabral.banktransactionmanager.repository.CurrencyRatesRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Map;
 
 import static by.kabral.banktransactionmanager.util.Currency.*;
 import static by.kabral.banktransactionmanager.util.Constant.*;
+import static by.kabral.banktransactionmanager.util.Message.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,21 @@ public class CurrencyRatesService {
     private final ExternalAPIProperties externalAPIProperties;
     private final CurrencyRatesRepository currencyRatesRepository;
     private final RestClient restClient;
+
+    @Transactional(readOnly = true)
+    public CurrencyRate getCurrentRateByTargetShortname(String shortName) throws EntityNotFoundException {
+        return currencyRatesRepository.findFirstByTargetOrderByDatetimeDesc(shortName)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(CURRENCY_RATE_IS_NOT_FOUND, shortName)));
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, CurrencyRate> getCurrentRates() throws EntityNotFoundException {
+        return Map.of(
+                TENGE_SHORT_NAME, getCurrentRateByTargetShortname(TENGE_SHORT_NAME),
+                EURO_SHORT_NAME, getCurrentRateByTargetShortname(EURO_SHORT_NAME),
+                RUBLE_SHORT_NAME, getCurrentRateByTargetShortname(RUBLE_SHORT_NAME)
+        );
+    }
 
     @Scheduled(cron = "@daily")
     @Transactional

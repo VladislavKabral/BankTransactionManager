@@ -1,2 +1,2 @@
-insert into limits(id, type, value, datetime) values ('d8c2a2f7-74fa-437c-aa69-ce471ade0df8', 'PRODUCT', '1000', '2024-04-11T00:00:00+03');
-insert into limits(id, type, value, datetime) values ('e4d94d0f-29df-4216-b7db-28912ed396a2', 'SERVICE', '1000', '2024-04-11T00:00:00+03')
+insert into limits(id, type, value, datetime) values ('d8c2a2f7-74fa-437c-aa69-ce471ade0df8', '0', '1000', '2024-04-11T00:00:00+03');
+insert into limits(id, type, value, datetime) values ('e4d94d0f-29df-4216-b7db-28912ed396a2', '1', '1000', '2024-04-11T00:00:00+03')

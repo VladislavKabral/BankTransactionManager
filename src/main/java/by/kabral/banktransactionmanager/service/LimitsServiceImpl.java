@@ -18,7 +18,7 @@ import static by.kabral.banktransactionmanager.util.Constant.*;
 
 @Service
 @RequiredArgsConstructor
-public class LimitsService implements EntityService<LimitDto> {
+public class LimitsServiceImpl implements EntityService<LimitDto> {
 
   private final LimitsRepository limitsRepository;
   private final LimitsMapper limitsMapper;
@@ -35,7 +35,7 @@ public class LimitsService implements EntityService<LimitDto> {
   public LimitDto save(LimitDto limitDto) throws InvalidRequestDataException {
     limitsValidator.validate(limitDto);
     Limit limit = limitsMapper.toEntity(limitDto);
-    limit.setDateTime(ZonedDateTime.now(ZoneId.of(UTC_ZONE_NAME)));
+    limit.setDatetime(ZonedDateTime.now(ZoneId.of(UTC_ZONE_NAME)));
 
     return limitsMapper.toDto(limitsRepository.save(limit));
   }

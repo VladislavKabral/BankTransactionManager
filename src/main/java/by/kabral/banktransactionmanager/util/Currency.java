@@ -12,6 +12,8 @@ public class Currency {
   public final String TENGE_SHORT_NAME = "KZT";
   public final String RUBLE_SHORT_NAME = "RUB";
 
+  public final int SCALE = 4;
+
   public final List<String> currencyShortnames = List.of(
           DOLLAR_SHORT_NAME,
           EURO_SHORT_NAME,

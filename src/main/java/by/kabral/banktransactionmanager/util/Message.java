@@ -29,4 +29,5 @@ public class Message {
   public final String LIMIT_TYPE_IS_UNKNOWN = "The limit's type is unknown.";
   public final String METHOD_NOT_ALLOWED = "%s for this endpoint.";
   public final String REQUEST_PARAMETER_IS_INVALID = "Failed to convert value in request parameter.";
+  public final String CURRENCY_RATE_IS_NOT_FOUND = "Currency rate with target shortname '%s' is not found.";
 }
