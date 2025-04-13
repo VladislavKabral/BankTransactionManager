@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 import static by.kabral.banktransactionmanager.util.Message.*;
 import static by.kabral.banktransactionmanager.util.Constant.*;
@@ -12,6 +13,8 @@ import static by.kabral.banktransactionmanager.util.Regex.*;
 
 @Data
 public class TransactionDto {
+
+  private UUID id;
 
   @NotBlank(message = ACCOUNT_FROM_IS_BLANK)
   @Size(min = ACCOUNT_NAME_LENGTH, max = ACCOUNT_NAME_LENGTH, message = ACCOUNT_NAME_LENGTH_IS_INVALID)
@@ -39,4 +42,6 @@ public class TransactionDto {
 
   @NotNull(message = DATETIME_IS_NULL)
   private ZonedDateTime dateTime;
+
+  private boolean isLimitExceeded;
 }

@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LimitsController {
 
-  private final LimitsServiceImpl limitsServiceImpl;
+  private final LimitsServiceImpl limitsService;
 
   @GetMapping
   public ResponseEntity<LimitsListDto> getLimits() {
-    return new ResponseEntity<>(limitsServiceImpl.findAllLimits(), HttpStatus.OK);
+    return new ResponseEntity<>(limitsService.findAllLimits(), HttpStatus.OK);
   }
 
   @PostMapping
   public ResponseEntity<LimitDto> addLimit(@RequestBody @Valid LimitDto limitDto) throws InvalidRequestDataException {
-    return new ResponseEntity<>(limitsServiceImpl.save(limitDto), HttpStatus.CREATED);
+    return new ResponseEntity<>(limitsService.save(limitDto), HttpStatus.CREATED);
   }
 }

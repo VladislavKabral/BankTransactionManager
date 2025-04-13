@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class TransactionsMapper {
@@ -18,5 +20,11 @@ public class TransactionsMapper {
 
   public TransactionDto toDto(Transaction transaction) {
     return modelMapper.map(transaction, TransactionDto.class);
+  }
+
+  public List<TransactionDto> toDto(List<Transaction> transactions) {
+    return transactions.stream()
+            .map(this::toDto)
+            .toList();
   }
 }

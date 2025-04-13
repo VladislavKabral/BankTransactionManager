@@ -3,6 +3,7 @@ package by.kabral.banktransactionmanager.service;
 import by.kabral.banktransactionmanager.dto.LimitedTransactionDto;
 import by.kabral.banktransactionmanager.dto.LimitedTransactionListDto;
 import by.kabral.banktransactionmanager.dto.TransactionDto;
+import by.kabral.banktransactionmanager.dto.TransactionsListDto;
 import by.kabral.banktransactionmanager.exception.EntityNotFoundException;
 import by.kabral.banktransactionmanager.exception.InvalidRequestDataException;
 import by.kabral.banktransactionmanager.mapper.TransactionsMapper;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,26 @@ public class TransactionsServiceImpl implements EntityService<TransactionDto> {
   private final CurrencyRatesService currencyRatesService;
   private final TransactionsMapper transactionsMapper;
   private final TransactionsValidator transactionsValidator;
+
+  @Transactional(readOnly = true)
+  public TransactionsListDto findAllTransactions() throws EntityNotFoundException {
+    List<Transaction> transactions = transactionsRepository.findAll();
+    List<UUID> limitedTransactionsIds = findLimitedTransactions()
+            .getTransactions()
+            .stream()
+            .map(LimitedTransactionDto::getId)
+            .toList();
+
+    List<TransactionDto> transactionsDto = transactionsMapper
+            .toDto(transactions)
+            .stream()
+            .peek(t -> t.setLimitExceeded(limitedTransactionsIds.contains(t.getId())))
+            .toList();
+
+    return TransactionsListDto.builder()
+            .transactions(transactionsDto)
+            .build();
+  }
 
   @Transactional(readOnly = true)
   public LimitedTransactionListDto findLimitedTransactions() throws EntityNotFoundException {
