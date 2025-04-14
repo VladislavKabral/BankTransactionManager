@@ -1,6 +1,7 @@
 package by.kabral.banktransactionmanager.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import static by.kabral.banktransactionmanager.util.Constant.*;
 import static by.kabral.banktransactionmanager.util.Regex.*;
 
 @Data
+@Builder
 public class TransactionDto {
 
   private UUID id;

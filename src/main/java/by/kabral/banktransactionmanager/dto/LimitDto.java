@@ -1,6 +1,7 @@
 package by.kabral.banktransactionmanager.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import static by.kabral.banktransactionmanager.util.Message.*;
 import static by.kabral.banktransactionmanager.util.Regex.*;
 
 @Data
+@Builder
 public class LimitDto {
 
   @NotBlank(message = LIMIT_TYPE_IS_BLANK)
