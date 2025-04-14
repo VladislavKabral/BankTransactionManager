@@ -6,6 +6,7 @@ import by.kabral.banktransactionmanager.exception.InvalidRequestDataException;
 import by.kabral.banktransactionmanager.mapper.LimitsMapper;
 import by.kabral.banktransactionmanager.model.Limit;
 import by.kabral.banktransactionmanager.repository.LimitsRepository;
+import by.kabral.banktransactionmanager.util.ExpenseCategory;
 import by.kabral.banktransactionmanager.util.validator.LimitsValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class LimitsServiceImpl implements EntityService<LimitDto> {
     return LimitsListDto.builder()
             .limits(limitsMapper.toListDto(limitsRepository.findAll()))
             .build();
+  }
+
+  @Transactional(readOnly = true)
+  public Limit findCurrentLimit(ExpenseCategory type) {
+    return limitsRepository.findFirstByTypeOrderByDatetimeDesc(type);
   }
 
   @Transactional
