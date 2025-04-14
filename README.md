@@ -37,7 +37,9 @@ This project provides a REST API for working with transactions and managing expe
    ```bash
    mvn install
    
-4. Now, you can use the app by starting .jar file, which you can find in the 'target' folder. 
+4. Also, you need to change environment variable for yourself. Before starting, change DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD and EXTERNAL_API_KEY.
+
+5. Now, you can use the app by starting .jar file, which you can find in the 'target' folder. 
 
 ## 💻 Exploitation
 
