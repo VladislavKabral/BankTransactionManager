@@ -82,7 +82,10 @@ public class TransactionsServiceImpl implements EntityService<TransactionDto> {
     BigDecimal sum = BigDecimal.ZERO;
 
     List<LimitedTransactionDto> filteredTransactions = transactions.stream()
-            .filter(t -> t.getDateTime().isBefore(transaction.getDateTime()) && !t.getId().equals(transaction.getId()))
+            .filter(t -> t.getDateTime().isBefore(transaction.getDateTime())
+                    && !t.getId().equals(transaction.getId())
+                    && (t.getDateTime().getMonth() == transaction.getDateTime().getMonth())
+            )
             .toList();
 
     for (LimitedTransactionDto t : filteredTransactions) {
