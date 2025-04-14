@@ -15,7 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "TransactionsController", description = "The controller for the transactions")
+import static by.kabral.banktransactionmanager.util.Description.*;
+
+@Tag(name = TRANSACTIONS_CONTROLLER_NAME, description = TRANSACTIONS_CONTROLLER_DESCRIPTION)
 @RestController
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
@@ -24,8 +26,8 @@ public class TransactionsController {
   private final TransactionsServiceImpl transactionsService;
 
   @Operation(
-          summary = "Getting all the transactions",
-          description = "Allows to get all the transactions with the flag 'limit_exceeded'"
+          summary = TRANSACTIONS_CONTROLLER_GET_TRANSACTIONS_SUMMARY,
+          description = TRANSACTIONS_CONTROLLER_GET_TRANSACTIONS_DESCRIPTION
   )
   @GetMapping
   public ResponseEntity<TransactionsListDto> getTransactions() {
@@ -33,8 +35,8 @@ public class TransactionsController {
   }
 
   @Operation(
-          summary = "Getting only limited transactions",
-          description = "Allows to get the transactions, which exceeded the limit"
+          summary = TRANSACTIONS_CONTROLLER_GET_LIMITED_TRANSACTIONS_SUMMARY,
+          description = TRANSACTIONS_CONTROLLER_GET_LIMITED_TRANSACTIONS_DESCRIPTION
   )
   @GetMapping("/limited")
   public ResponseEntity<LimitedTransactionListDto> getLimitedTransactions() {
@@ -42,12 +44,12 @@ public class TransactionsController {
   }
 
   @Operation(
-          summary = "Saving a new transaction",
-          description = "Allows to save a new transaction"
+          summary = TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_SUMMARY,
+          description = TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_DESCRIPTION
   )
   @PostMapping
   public ResponseEntity<TransactionDto> saveTransaction(@RequestBody @Valid
-                                                          @Parameter(description = "Dto with the data of the transaction", required = true)
+                                                          @Parameter(description = TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_PARAM_DESCRIPTION, required = true)
                                                           TransactionDto transactionDto) throws InvalidRequestDataException, EntityNotFoundException {
     return new ResponseEntity<>(transactionsService.save(transactionDto), HttpStatus.CREATED);
   }

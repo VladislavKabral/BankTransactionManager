@@ -4,14 +4,16 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 
+import static by.kabral.banktransactionmanager.util.Description.*;
+
 @OpenAPIDefinition(
         info = @Info(
-                title = "Bank Transaction Manager Api",
-                description = "API of bank transaction manager",
-                version = "1.0.0",
+                title = PROJECT_TITLE,
+                description = PROJECT_DESCRIPTION,
+                version = PROJECT_VERSION,
                 contact = @Contact(
-                        name = "Kabral Vladislav",
-                        email = "mr.kabral@mail.ru"
+                        name = PROJECT_AUTHOR_NAME,
+                        email = PROJECT_AUTHOR_EMAIL
                 )
         )
 )

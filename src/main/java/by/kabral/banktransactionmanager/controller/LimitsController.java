@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "LimitsController", description = "The controller for the limits")
+import static by.kabral.banktransactionmanager.util.Description.*;
+
+@Tag(name = LIMITS_CONTROLLER_NAME, description = LIMITS_CONTROLLER_DESCRIPTION)
 @RestController
 @RequestMapping("/limits")
 @RequiredArgsConstructor
@@ -22,8 +24,8 @@ public class LimitsController {
   private final LimitsServiceImpl limitsService;
 
   @Operation(
-          summary = "Getting all the limits",
-          description = "Allows to get all the limits form the database"
+          summary = LIMITS_CONTROLLER_GET_LIMITS_SUMMARY,
+          description = LIMITS_CONTROLLER_GET_LIMITS_DESCRIPTION
   )
   @GetMapping
   public ResponseEntity<LimitsListDto> getLimits() {
@@ -31,12 +33,12 @@ public class LimitsController {
   }
 
   @Operation(
-          summary = "Saving a new limit",
-          description = "Allows to save a new limit"
+          summary = LIMITS_CONTROLLER_ADD_LIMIT_SUMMARY,
+          description = LIMITS_CONTROLLER_ADD_LIMIT_DESCRIPTION
   )
   @PostMapping
   public ResponseEntity<LimitDto> addLimit(@RequestBody @Valid
-                                             @Parameter(description = "Dto with the data of the limit", required = true)
+                                             @Parameter(description = LIMITS_CONTROLLER_ADD_LIMIT_PARAM_DESCRIPTION, required = true)
                                              LimitDto limitDto) throws InvalidRequestDataException {
     return new ResponseEntity<>(limitsService.save(limitDto), HttpStatus.CREATED);
   }

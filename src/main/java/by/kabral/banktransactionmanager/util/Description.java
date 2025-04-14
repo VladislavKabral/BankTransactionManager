@@ -5,6 +5,30 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Description {
 
+  public final String PROJECT_TITLE = "Bank Transaction Manager Api";
+  public final String PROJECT_DESCRIPTION = "API of bank transaction manager";
+  public final String PROJECT_VERSION = "1.0.0";
+  public final String PROJECT_AUTHOR_NAME = "Kabral Vladislav";
+  public final String PROJECT_AUTHOR_EMAIL = "mr.kabral@mail.ru";
+
+  public final String TRANSACTIONS_CONTROLLER_NAME = "TransactionsController";
+  public final String TRANSACTIONS_CONTROLLER_DESCRIPTION = "The controller for the transactions";
+  public final String TRANSACTIONS_CONTROLLER_GET_TRANSACTIONS_SUMMARY = "Getting all the transactions";
+  public final String TRANSACTIONS_CONTROLLER_GET_TRANSACTIONS_DESCRIPTION = "Allows to get all the transactions with the flag 'limit_exceeded'";
+  public final String TRANSACTIONS_CONTROLLER_GET_LIMITED_TRANSACTIONS_SUMMARY = "Getting only limited transactions";
+  public final String TRANSACTIONS_CONTROLLER_GET_LIMITED_TRANSACTIONS_DESCRIPTION = "Allows to get the transactions, which exceeded the limit";
+  public final String TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_SUMMARY = "Saving a new transaction";
+  public final String TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_DESCRIPTION = "Allows to save a new transaction";
+  public final String TRANSACTIONS_CONTROLLER_SAVE_TRANSACTION_PARAM_DESCRIPTION = "Dto with the data of the transaction";
+
+  public final String LIMITS_CONTROLLER_NAME = "LimitsController";
+  public final String LIMITS_CONTROLLER_DESCRIPTION = "The controller for the limits";
+  public final String LIMITS_CONTROLLER_GET_LIMITS_SUMMARY = "Getting all the limits";
+  public final String LIMITS_CONTROLLER_GET_LIMITS_DESCRIPTION = "Allows to get all the limits form the database";
+  public final String LIMITS_CONTROLLER_ADD_LIMIT_SUMMARY = "Saving a new limit";
+  public final String LIMITS_CONTROLLER_ADD_LIMIT_DESCRIPTION = "Allows to save a new limit";
+  public final String LIMITS_CONTROLLER_ADD_LIMIT_PARAM_DESCRIPTION = "Dto with the data of the limit";
+
   public final String TRANSACTION_DESCRIPTION = "Data transfer object for a transaction";
   public final String TRANSACTION_ID_DESCRIPTION = "The ID of the transaction";
   public final String TRANSACTION_ID_EXAMPLE = "4a63509a-0761-4f91-b1b9-715b9f14af4c";
