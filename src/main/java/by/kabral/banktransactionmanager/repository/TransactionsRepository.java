@@ -4,6 +4,7 @@ import by.kabral.banktransactionmanager.dto.LimitedTransactionDto;
 import by.kabral.banktransactionmanager.model.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,29 +14,32 @@ import java.util.UUID;
 public interface TransactionsRepository extends JpaRepository<Transaction, UUID> {
 
   @Query("""
-          select new by.kabral.banktransactionmanager.dto.LimitedTransactionDto(
-              t.id,
-              t.accountFrom,
-              t.accountTo,
-              t.currencyShortname,
-              t.sum,
-              t.expenseCategory,
-              t.datetime,
-              (select l.value from Limit l where
-                                            l.datetime = (select lm.datetime from Limit lm
-                                                                                      where t.datetime > lm.datetime
-                                                                                      order by lm.datetime desc
-                                                                                      limit 1)
-                                        and l.type = t.expenseCategory
-              ),
-              (select l.datetime from Limit l where
-                  l.datetime = (select lm.datetime from Limit lm
-                                     where t.datetime > lm.datetime
-                                     order by lm.datetime desc
-                                     limit 1)
-                                          and l.type = t.expenseCategory
-              ),
-              'USD')
-              from Transaction t""")
+          select new by.kabral.banktransactionmanager.dto.LimitedTransactionDto(t.id, t.accountFrom, t.accountTo, t.currencyShortname, t.sum,
+                             t.expenseCategory, t.datetime, l.value, l.datetime, 'USD')
+                             from Transaction t
+                             join t.limit l
+                             where (l.value - t.sumUsd) < (
+                                select sum(tr.sumUsd) from Transaction tr where t.expenseCategory = tr.expenseCategory
+                                 and tr.datetime < t.datetime
+                                 and date_trunc('month', tr.datetime) = date_trunc('month', t.datetime)
+                             )""")
   List<LimitedTransactionDto> findLimitedTransactions();
+
+  @Query("""
+          select case
+                     when (l.value - t.sumUsd) < (
+                         select sum(tr.sumUsd)
+                         from Transaction tr
+                         where t.expenseCategory = tr.expenseCategory
+                           and tr.datetime < t.datetime
+                           and date_trunc('month', tr.datetime) = date_trunc('month', t.datetime)
+                     )
+                     then true
+                     else false
+                 end as result
+          from Transaction t
+          join t.limit l
+          where t.id = :transactionId
+          """)
+  Boolean isTransactionLimited(@Param("transactionId") UUID transactionId);
 }

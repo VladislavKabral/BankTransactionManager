@@ -1,6 +1,7 @@
 package by.kabral.banktransactionmanager.model;
 
 import by.kabral.banktransactionmanager.util.ExpenseCategory;
+import by.kabral.banktransactionmanager.util.ExpenseCategoryConverter;
 import by.kabral.banktransactionmanager.util.ZonedDateTimeConvertor;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Limit {
     private UUID id;
 
     @Column(name = "type")
+    @Convert(converter = ExpenseCategoryConverter.class)
     private ExpenseCategory type;
 
     @Column(name = "value")

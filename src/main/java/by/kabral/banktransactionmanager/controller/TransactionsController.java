@@ -20,17 +20,17 @@ public class TransactionsController {
   private final TransactionsServiceImpl transactionsService;
 
   @GetMapping
-  public ResponseEntity<TransactionsListDto> getTransactions() throws EntityNotFoundException {
+  public ResponseEntity<TransactionsListDto> getTransactions() {
     return new ResponseEntity<>(transactionsService.findAllTransactions(), HttpStatus.OK);
   }
 
   @GetMapping("/limited")
-  public ResponseEntity<LimitedTransactionListDto> getLimitedTransactions() throws EntityNotFoundException {
+  public ResponseEntity<LimitedTransactionListDto> getLimitedTransactions() {
     return new ResponseEntity<>(transactionsService.findLimitedTransactions(), HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<TransactionDto> saveTransaction(@RequestBody @Valid TransactionDto transactionDto) throws InvalidRequestDataException {
+  public ResponseEntity<TransactionDto> saveTransaction(@RequestBody @Valid TransactionDto transactionDto) throws InvalidRequestDataException, EntityNotFoundException {
     return new ResponseEntity<>(transactionsService.save(transactionDto), HttpStatus.CREATED);
   }
 }

@@ -1,6 +1,7 @@
 package by.kabral.banktransactionmanager.controller.advice;
 
 import by.kabral.banktransactionmanager.dto.ErrorResponseDto;
+import by.kabral.banktransactionmanager.exception.EntityNotFoundException;
 import by.kabral.banktransactionmanager.exception.InvalidRequestDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,18 @@ public class AppExceptionHandler {
   public ResponseEntity<ErrorResponseDto> defaultMessageExceptionHandler(Exception exception) {
     return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponseDto.builder()
+                    .message(exception.getMessage())
+                    .timestamp(ZonedDateTime.now(ZoneId.of(UTC_ZONE_NAME)).toLocalDateTime())
+                    .build());
+  }
+
+  @ExceptionHandler(value = {
+          EntityNotFoundException.class
+  })
+  public ResponseEntity<ErrorResponseDto> entityNotFoundExceptionHandler(Exception exception) {
+    return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
             .body(ErrorResponseDto.builder()
                     .message(exception.getMessage())
                     .timestamp(ZonedDateTime.now(ZoneId.of(UTC_ZONE_NAME)).toLocalDateTime())
