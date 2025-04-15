@@ -13,6 +13,7 @@ import by.kabral.banktransactionmanager.repository.TransactionsRepository;
 import by.kabral.banktransactionmanager.util.Currency;
 import by.kabral.banktransactionmanager.util.validator.TransactionsValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static by.kabral.banktransactionmanager.util.LogMessage.*;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TransactionsServiceImpl implements EntityService<TransactionDto> {
 
   private final TransactionsRepository transactionsRepository;
@@ -60,6 +64,7 @@ public class TransactionsServiceImpl implements EntityService<TransactionDto> {
 
   @Transactional
   public TransactionDto save(TransactionDto transactionDto) throws InvalidRequestDataException, EntityNotFoundException {
+    log.debug(SAVING_NEW_TRANSACTION);
     Map<String, CurrencyRate> currentRates = currencyRatesService.getCurrentRates();
 
     transactionDto.setExpenseCategory(transactionDto.getExpenseCategory().toUpperCase());
@@ -82,6 +87,8 @@ public class TransactionsServiceImpl implements EntityService<TransactionDto> {
 
     TransactionDto result = transactionsMapper.toDto(transactionsRepository.save(transaction));
     result.setLimitExceeded(transactionsRepository.isTransactionLimited(result.getId()));
+    log.info(String.format(NEW_TRANSACTION_WAS_SAVED, result.getCurrencyShortName(), result.getSum()));
+    log.debug(String.format(IS_LIMIT_EXCEEDED, result.isLimitExceeded()));
 
     return result;
   }
