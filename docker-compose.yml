@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  db:
+    image: 'postgres:15.1'
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - bank-transaction-manager
+
+  bank-transaction-manager:
+    image: bank-transaction-manager:0.0.1
+    container_name: bank-transaction-manager
+    networks:
+      - bank-transaction-manager
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - EXTERNAL-API_KEY=${EXTERNAL_API_KEY}
+    depends_on:
+      - db
+
+networks:
+  bank-transaction-manager:
+    driver: bridge

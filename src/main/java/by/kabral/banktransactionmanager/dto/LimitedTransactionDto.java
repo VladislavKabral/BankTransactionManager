@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -14,6 +15,7 @@ import static by.kabral.banktransactionmanager.util.Description.*;
 
 @Schema(description = LIMITED_TRANSACTION_DESCRIPTION)
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class LimitedTransactionDto {
