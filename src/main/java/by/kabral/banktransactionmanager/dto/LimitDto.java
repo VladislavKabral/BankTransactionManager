@@ -2,8 +2,10 @@ package by.kabral.banktransactionmanager.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -15,6 +17,8 @@ import static by.kabral.banktransactionmanager.util.Regex.*;
 
 @Schema(description = LIMIT_DESCRIPTION)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class LimitDto {
 

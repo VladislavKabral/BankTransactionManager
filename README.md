@@ -37,16 +37,26 @@ This project provides a REST API for working with transactions and managing expe
    ```bash
    mvn install
    
-4. Also, you need to change environment variable for yourself. Before starting, change DB_HOST, DB_PORT, DB_NAME, DB_USERNAME, DB_PASSWORD and EXTERNAL_API_KEY.
+4. Visit https://twelvedata.com/docs to get your own api key. 
 
-5. Now, you can use the app by starting .jar file, which you can find in the 'target' folder. 
+5. Also, you need to change environment variable for yourself. Before starting, create '.env' file and add your DB_USER, DB_PASSWORD, DB_NAME, EXTERNAL_API_KEY.
+
+   ```
+   DB_USER='Your database user'
+   DB_PASSWORD='Your database password'
+   DB_NAME='Your database name'
+   EXTERNAL_API_KEY='Your api key'
+   
+6. Then you need to build docker image for the app. Use file 'build.bat'.
+
+7. Now, you can use the app by starting docker-compose.yml file, which you can find in the main directory of the project (you must have Docker). 
 
 ## 💻 Exploitation
 
-1. You can start working with the app with .jar file.
+1. You can start working with the app with docker-compose.yml file. Move to the project directory and call the command:
 
    ```bash
-   java -jar BankTransactionManager-0.0.1-SNAPSHOT.jar   
+   docker-compose up -d  
    
 2. Use an application to send requests, for example, Postman.
    
