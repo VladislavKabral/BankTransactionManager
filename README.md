@@ -11,7 +11,7 @@ This project is designed to manage transactions and expense limits.
 2. [Installation](#-installation)
 3. [Exploitation](#-exploitation)
 4. [Technologies](#-technologies)
-5. [Функциональность](#-functionality)
+5. [Functionality](#-functionality)
 
 ---
 
@@ -52,6 +52,7 @@ This project provides a REST API for working with transactions and managing expe
    
    * GET: http://localhost:8081/transactions
    * GET: http://localhost:8081/transactions/limited
+   * GET: http://localhost:8081/limits
    * POST: http://localhost:8081/transactions
    * POST: http://localhost:8081/limits
 
