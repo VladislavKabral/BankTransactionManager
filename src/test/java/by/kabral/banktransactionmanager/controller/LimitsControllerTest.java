@@ -69,7 +69,7 @@ public class LimitsControllerTest {
   @Test
   public void testAddLimitWhenRequestIsValidReturnNewLimit() throws Exception {
     //given
-    LimitDto limit = getLimit();
+    LimitDto limit = getLimitDto();
     LimitDto request = getRequestForNewLimit();
 
     //when
