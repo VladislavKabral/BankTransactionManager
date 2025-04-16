@@ -6,6 +6,7 @@ import by.kabral.banktransactionmanager.exception.EntityNotFoundException;
 import by.kabral.banktransactionmanager.model.CurrencyRate;
 import by.kabral.banktransactionmanager.repository.CurrencyRatesRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,12 @@ import java.util.Map;
 
 import static by.kabral.banktransactionmanager.util.Currency.*;
 import static by.kabral.banktransactionmanager.util.Constant.*;
+import static by.kabral.banktransactionmanager.util.LogMessage.*;
 import static by.kabral.banktransactionmanager.util.Message.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CurrencyRatesService {
 
     private final ExternalAPIProperties externalAPIProperties;
@@ -47,6 +50,7 @@ public class CurrencyRatesService {
     @Scheduled(cron = "@daily")
     @Transactional
     public void loadCurrencyRates() {
+        log.debug(LOADING_NEW_CURRENCY_RATES);
         loadCurrencyRate(TENGE_SHORT_NAME);
         loadCurrencyRate(RUBLE_SHORT_NAME);
         loadCurrencyRate(EURO_SHORT_NAME);
@@ -81,5 +85,6 @@ public class CurrencyRatesService {
                 .build();
 
         currencyRatesRepository.save(currencyRate);
+        log.info(String.format(NEW_CURRENCY_RATE_WAS_LOADED, target, currencyRate.getRate().doubleValue()));
     }
 }

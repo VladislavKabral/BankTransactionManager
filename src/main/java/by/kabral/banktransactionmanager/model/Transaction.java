@@ -4,6 +4,8 @@ import by.kabral.banktransactionmanager.util.ExpenseCategory;
 import by.kabral.banktransactionmanager.util.ExpenseCategoryConverter;
 import by.kabral.banktransactionmanager.util.ZonedDateTimeConvertor;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Table(name = "transactions")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Transaction {
 
     @Id
